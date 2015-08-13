@@ -1,0 +1,58 @@
+// lab.cpp : Defines the entry point for the console application.
+//
+//menu.cpp
+
+#include "stdafx.h"
+#include <iostream>
+#include "conio.h"
+
+using namespace std;
+
+void main()
+{int opc;
+ float area, a, b, c, m, lado, promedio;
+  do
+ {
+ cout<<"*****MENU*****\n1.- Area del cuadrado\n2.- Promedio de tres numeros\n3.- Mayor de dos numeros\n0.- Salir\n";
+ cin>>opc;
+
+ switch(opc)
+  {case 1: cout<<"ingrese el lado: ";
+           cin>>lado;
+		   area = lado*lado;
+		   cout<<"el area es: "<<area<<"\n"
+			   ;
+		   
+		   break;
+		   
+
+   case 2: cout<<"ingrese el primer numero: "; 
+	       cin>>a;
+		   cout<<"ingrese el segundo numero: ";
+		   cin>>b;
+		   cout<<"ingrese el tercer numero: ";
+		   cin>>c;
+		   promedio = (a+b+c)/3;
+		   cout<<"el promedio es: "<<promedio<<"\n";
+		   getch();
+		   break;
+		   
+
+   case 3: cout<<"ingrese el primer numero: ";
+	       cin>>a;
+		   cout<<"ingrese el segundo numero: ";
+		   cin>>b;
+		   if(a>b)
+			   cout<<"el numero "<<a<<" es mayor que "<<b<<"\n";
+		   else
+			   cout<<"el numero "<<b<<" es mayorque "<<a<<"\n";
+		   getch();
+		   break;
+		   
+   default:
+	        break;
+
+  } 
+ }while(opc != 0);
+ getch();
+}
