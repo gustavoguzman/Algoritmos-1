@@ -4,7 +4,7 @@
 #include "stdafx.h"
 #include <iostream>
 #include "conio.h"
-
+#define pi 3.1416
 using namespace std;
 
 float area_circulo(float r);
@@ -20,6 +20,6 @@ void main()
 
 float area_circulo(float r)
 {float a;
- a = 3.1416*r*r;
+ a = pi*r*r;
  return a;
 }
