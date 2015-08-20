@@ -1,0 +1,25 @@
+// lab2.cpp : Defines the entry point for the console application.
+//
+
+#include "stdafx.h"
+#include <iostream>
+#include "conio.h"
+
+using namespace std;
+
+float area_circulo(float r);
+
+void main()
+{float r, area;
+ cout<<"ingrese el radio: ";
+ cin>>r;
+ area = area_circulo(r);
+ cout<<"el area del circulo es igual a: "<<area;
+ getch(); 
+}
+
+float area_circulo(float r)
+{float a;
+ a = 3.1416*r*r;
+ return a;
+}
