@@ -21,7 +21,7 @@ void main()
      sb = sb - (sb*(afp+0.01));    
    else 
      sb = sb - (sb*afp);
-   if(sb > (sb*2))
+   if(sb >= (sm*2))
 	   sb = sb - (sb*iva);
    suma = suma + sb;
   cout<<"ingrese otro salario bruto y si no desea continuar ingrese -999: ";
