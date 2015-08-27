@@ -1,0 +1,81 @@
+// lab3.cpp : Defines the entry point for the console application. gustavo guzman
+//
+
+#include "stdafx.h"
+#include "conio.h"
+#include <iostream>
+#define TAM 50
+#define afp 0.121
+#define iva 0.13
+#define sm 1400
+
+using namespace std;
+
+void cargar_vector(float vec[], int n);
+void mostrar_vector(float vec[], int n);
+
+void main()
+{float sb[TAM], IVA[TAM], AFP[TAM], AD[TAM], sn[TAM];
+ int n, i;
+
+ cout<<"ingrese el numero de empleados: ";
+ cin>>n;
+
+ cargar_vector(sb,n);
+
+ for(i=0; i<n; i++)
+  {if(sb[i] > 15000)
+    {IVA[i] = sb[i]*iva;
+     AFP[i] = sb[i]*afp;
+	 AD[i] = sb[i]*(afp+0.01);
+	 sn[i] = sb[i] - IVA[i] - AD[i];
+    }
+   else
+    {if(sb[i] >= (sm*2))
+      {IVA[i] = sb[i]*iva;
+       AFP[i] = sb[i]*afp;
+	   AD[i] = 0;
+	   sn[i] = sb[i] - IVA[i] - AFP[i];
+      }
+	  else
+	    {IVA[i] = 0;
+         AFP[i] = sb[i]*afp;
+		 AD[i] = 0;
+		 sn[i] = sb[i] - AFP[i];
+        }
+      }
+    }
+  
+ cout<<"*******************************PLANILLA*******************************"<<endl;
+ cout<<" SALARIO BRUTO\t   AFP\t   IVA\t   ADICIONAL\t  SALARIO NETO\t"<<endl;
+ for(i=0; i<n; i++)
+  {mostrar_vector(sb,n);
+   cout<<"\t  "<<endl;
+   mostrar_vector(AFP,n);
+   cout<<"\t  "<<endl;
+   mostrar_vector(IVA,n);
+   cout<<"\t  "<<endl;
+   mostrar_vector(AD,n);
+   cout<<"\t  "<<endl;
+   mostrar_vector(sn,n);
+   cout<<endl;
+  }
+ getch();
+
+}
+
+void cargar_vector(float vec[], int n)
+{int i;
+	for(i=0; i<n; i++)
+   {cout<<"ingrese el salario bruto del trabajador "<<i<<" : ";
+    cin>>vec[i];
+   }
+}
+
+void mostrar_vector(float vec[], int n)
+{int i;
+  for(i=0; i<n; i++)
+   {cout<<vec[i];
+   }
+}
+
