@@ -1,0 +1,59 @@
+// lab3.cpp : Defines the entry point for the console application. gustavo guzman
+//
+
+#include "stdafx.h"
+#include "conio.h"
+#include <iostream>
+#include "math.h"
+
+using namespace std;
+
+void cuadratica(float a, float b, float c, float &x1, float &x2);
+void imaginario(float a, float b, float c, float &x1, float &x2);
+
+void main()
+{float a,b,c,x1,x2;
+
+ cout<<"ingrese el termino a: ";
+ cin>>a;
+ cout<<"ingrese el termino b: ";
+ cin>>b;
+ cout<<"ingrese el termino c: ";
+ cin>>c;
+
+ cuadratica(a,b,c,x1,x2);
+ if(b*b-4*a*c > 0)
+  {
+   cout<<"el resultado de x1 es igual a: "<<x1<<endl;
+   cout<<"el resultado de x2 es igual a: "<<x2<<endl;
+  }
+ if(b*b-4*a*c < 0)
+  {
+	 imaginario(a,b,c,x1,x2);
+	 cout<<"el resultado de x1 es: "<<x1<<" + "<<sqrt((b*b-4*a*c)*(-1))<<" *i"<<endl;
+	 cout<<"el resultado de x2 es: "<<x2<<" - "<<sqrt((b*b-4*a*c)*(-1))<<" *i"<<endl;
+  }
+ if(b*b-4*a*c == 0)
+  {
+	  x1 = -b/(2*a);
+	  cout<<"la solucion unica es x: "<<x1;
+  }
+ getch();
+
+}
+
+void cuadratica(float a, float b, float c, float &x1, float &x2)
+{  
+  if(b*b-4*a*c > 0)
+   {
+ 	 x1 = (-b + sqrt((b*b) - (4*a*c)))/(2*a);
+ 	 x2 = (-b - sqrt((b*b) - (4*a*c)))/(2*a); 
+   }
+
+}
+
+void imaginario(float a, float b, float c, float &x1, float &x2)
+{
+	x1 = -b/(2*a);
+    x2 = -b/(2*a);
+}
