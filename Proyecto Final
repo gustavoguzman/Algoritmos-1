@@ -1,0 +1,415 @@
+#include "stdafx.h"
+#include "conio.h"
+#include <iostream>
+#include "stdlib.h"
+#include "string.h"
+#include <string>
+
+using namespace std;
+
+struct regproducto
+{
+	int idprod;
+	float precio;
+	char nombre[30];
+	char estado;
+};
+
+
+struct regventas
+{
+	int idventa;
+	int idprod;
+	int idcliente;
+	int cantidad;
+	float total;
+	char estado;
+};
+
+
+struct regcliente
+{
+	int idcliente;
+	int nit;
+	char nombre[30];
+	char estado;
+};
+
+
+struct regusuario
+{	int idusuario;
+	int contra;
+	char nombre[30];
+	char estado;
+};
+
+
+struct regalmacen
+{
+	int idprod;
+	int cantidad;
+	char estado;
+};
+
+
+void creararchivo(char nomarch[30]);
+bool validarsolonumeros(char a[50]);
+bool validarsololetras(char a[30]);
+float obtenerprecio(int x);
+int obtenercontra();
+int obtenercantidad();
+void obtenerestado( char a[2]);
+int obtenerid();
+void obtenernombre(char a[30]);
+void adicionarusuario();
+void adicionarcliente();
+void adicionarprod();
+void adicionarventa();
+void adicionaralamacen();
+void eliminarusuario(int idusuario);
+void eliminarcliente(int idcliente);
+void eliminarproducto(int idproducto);
+void eliminarventa(int idproducto);
+void eliminaralmacen(int idproducto);
+void caratula();
+void menu();
+void menuadicionar();
+void menueliminar();
+void menumostrar();
+void reporteventas();
+
+
+void main()
+{
+	caratula();
+
+}
+
+void caratula()
+{regusuario regP;
+	cout<<"------------------LICOSMART----------------------\n";
+	void crearusuario();
+	cout<<"ingrese el id maestro o su id usuario: ";
+	cin>>regP.idusuario;
+	cout<<"ingrese la contrasenha: ";
+	cin>>regP.contra;
+    menu();
+	
+}
+
+void creararchivo(char nomarch[30])
+{FILE *alias;
+	alias = fopen(nomarch, "wb");
+	fclose(alias);
+}
+
+void crearusuario()
+{FILE*alias;
+ regusuario regP;
+ alias=fopen("usuarios.dat","ab");
+
+ if(alias!=NULL)
+ {
+	 regP.idusuario = 1000;
+	 regP.contra = 1234;
+	 strcpy(regP.nombre,"grupo");
+	 regP.estado = 'S';
+	 fwrite(&regP,sizeof(regP),1,alias);
+ }
+ 
+}
+
+void menu()
+{int op;
+
+
+
+ do
+ {	cout<<"------------------LICOSMART----------------------\n";
+	cout<<"\n1.Crear archivos\n2. Adicionar\n3. Eliminar\n4. Mostrar\n5. Reporte de ventas\n0. Salir";
+	cin>>op;
+	switch(op)
+	{
+		case 1:
+			creararchivo("clientes.dat");
+			creararchivo("ventas.dat");
+			creararchivo("productos.dat");
+			creararchivo("almacen.dat");
+			system("cls");
+			break;
+		case 2: 
+            menuadicionar();
+			system("cls");
+			break;
+		case 3:
+			//menueliminar();
+			system("cls");
+			break;
+		case 4: 
+			//menumostrar();
+			system("cls");
+			break;
+		case 5:
+			//reporteventas();
+			system("cls");
+			break;
+		case 0:
+			getch();
+			break;
+		default:
+			cout<<"Error! Opcion no valida!";
+			getch();
+			system("cls");
+			break;
+
+	}
+ }while(op!=0);
+}
+
+void menuadicionar()
+{int op;
+  do{
+  cout<<"------------------LICOSMART----------------------\n";
+  cout<<"\n1. Adicionar cliente\n2. Adicionar usuario\3. Adicionar producto\n4. Adicionar venta\5. Adicionar almacen\n6. Volver\n0. Salir\n";
+    
+  switch(op)
+  {	case 1:
+     adicionarcliente();
+	 system("cls");
+	case 2:
+		adicionarusuario();
+		system("cls");
+	case 3:
+		adicionarprod();
+		system("cls");
+	case 4:
+		adicionarventa();
+		system("cls");
+	case 5:
+		//adicionaralamacen();
+	    system("cls");	
+	case 0:
+		getch();
+		break;
+	default:
+			cout<<"Error! Opcion no valida!";
+			getch();
+			system("cls");
+			break;
+    }
+  }while(op!=0);
+}
+
+bool validarsolonumeros(char a[50])
+{int n=strlen(a);
+	for(int i=0;i<n;i++)
+	{
+            if(a[i]<48 || a[i]>57)
+                return false;
+	}
+	return true;
+}
+
+bool validarsololetras(char a[30])
+{int n=strlen(a),c=0;
+	for(int i=0;i<n;i++)
+	{
+            if((a[i]<65 || a[i]>90) && (a[i]<97 || a[i]>122)  ) 
+              {   
+			        c=1;
+			           
+			}		
+	}
+	if(c==0)
+	{return true;
+	}
+	else{
+	return false;
+	}
+	
+}
+
+void obtenerestado (char a)
+{
+	do{
+	  cout<<"Estado : ";
+	   
+		  cin>>a;
+	     
+	}while(a!='S'||a!='N');
+}
+
+int obtenercantidad()
+{int x;
+	char b[30];
+	do{
+		do{
+			cout<<"Cantidad del producto : "<<endl;
+			do{
+				gets(b);
+			}while(strlen(b)==0);
+		}while((validarsolonumeros(b))==false);
+	x=atoi(b);
+	}while(x<1000 || x>2000);
+	return (x);
+ 
+}
+
+int obtenercontra()
+{char a[30];
+ int x;
+		do{
+			cout<<"Contrasena : "<<endl;
+			do{
+				gets(a);
+			}while(strlen(a)==0);
+		}while((validarsolonumeros(a))==false);
+	x=atoi(a);
+ return (x);
+}
+
+float obtenerprecio(int x)
+{ FILE *alias;
+  regproducto regP;
+  float aux;
+  alias=fopen("producto.dat","rb");
+  if(alias!=NULL)
+  { fread(&regP,sizeof(regP),1,alias);
+   while(!feof(alias) && regP.idprod==x)
+	{  
+		aux=regP.precio;
+		fread(&regP,sizeof(regP),1,alias);
+		
+    }
+  }
+  return(aux);
+  fclose(alias);
+  
+}
+
+
+bool validarNIT(char c[30]){
+	bool k=false;
+	if(validarsolonumeros(c)==true){
+		if(strlen(c)==7){
+			k=true;
+		}
+	}
+	return(k);
+}
+
+int obtenernit()
+{char a[30];
+	do{
+		cout<<"Nit del cliente : ";
+		do{
+		gets(a);
+	}while(strlen(a)==0);
+	}while(validarNIT(a)==false);
+
+	int x=atoi(a);
+	return(x);
+}
+
+int obtenerid()
+{int x;
+	char b[50];
+	do{
+		do{
+			cout<<"ID CLIENTE : "<<endl;
+			do{
+				gets(b);
+			}while(strlen(b)==0);
+		}while((validarsolonumeros(b))==false);
+	x=atoi(b);
+	}while(x<1000 || x>2000);
+	return (x);
+
+}
+
+float obtenerprecio()
+{ char a[20];
+  float p; 
+	do{
+		do{
+			cout<<"Ingrese el precio del producto "<<endl;
+			 gets(a);
+			 }while(strlen(a)==0);
+     }while((validarsolonumeros(a)) == false);
+
+   p=atoi(a);
+   return(p);
+}
+
+void obtenernombre(char a[30]){
+	do{
+	  cout<<"NOMBRE DEL CLIENTE : ";
+	   do{
+		  gets(a);
+	     }while(strlen(a)==0);
+	}while(validarsololetras(a)==false); 
+}
+//adicionar
+void adicionarusuario()
+{regusuario regU;
+FILE*alias;
+ regU.idusuario= obtenerid();
+ obtenernombre(regU.nombre);
+ regU.contra= obtenercontra();
+ obtenerestado(regU.estado);
+alias=fopen("usuarios.dat","ab");
+	fwrite(&regU,sizeof(regU),1,alias); 
+	fclose(alias);
+}
+
+void adicionarcliente()
+{FILE *alias;
+	regcliente regC;
+	regC.idcliente=obtenerid();
+	regC.nit=obtenernit();
+	obtenernombre(regC.nombre);
+	obtenerestado(regC.estado);
+	alias=fopen("clientes.dat","ab");
+    fwrite(&regC,sizeof(regC),1,alias);
+    fclose(alias);
+}
+
+void adicionarprod()
+{FILE *alias;
+	regproducto regP;
+	regP.idprod= obtenerid();
+	obtenernombre( regP.nombre);
+	regP.precio=obtenerprecio();
+	obtenerestado(regP.estado);
+	alias=fopen("Producto.dat","ab");
+    fwrite(&regP,sizeof(regP),1,alias);
+    fclose(alias);  
+
+}
+
+void adicionarventa()
+{FILE *alias;
+	regventas regV;
+	regV.idventa= obtenerid();
+	regV.idprod=obtenerid();
+	regV.idcliente=obtenerid();
+	regV.cantidad= obtenercantidad();
+	regV.total=regV.cantidad*obtenerprecio(regV.idprod);
+	obtenerestado(regV.estado);
+	alias=fopen("ventas.dat","ab");
+    fwrite(&regV,sizeof(regV),1,alias);
+    fclose(alias);
+}
+
+void adicionaralmacen()
+{FILE *alias;
+	regalmacen regA;
+	regA.idprod=obtenerid();
+	regA.cantidad= obtenercantidad();
+	obtenerestado(regA.estado);
+	alias=fopen("almacen.dat","ab");
+    fwrite(&regA,sizeof(regA),1,alias);
+    fclose(alias);
+}
+
+
